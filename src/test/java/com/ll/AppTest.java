@@ -57,4 +57,39 @@ class AppTest {
                 .contains("명령)")
                 .contains("올바르지 않은 명령입니다.");
     }
+
+    @Test
+    @DisplayName("등록화면에서 명언과 작가를 입력 및 명언 생성")
+    public void t5() {
+        String rs = AppTestRunner.run("등록\n"
+                + "현재를 사랑하라.\n"
+                + "작자미상\n"
+                + "");
+
+        assertThat(rs)
+                .contains("명언 : ")
+                .contains("작가 : ")
+                .contains("1번 명언이 등록되었습니다.");
+    }
+
+    @Test
+    @DisplayName("명언이 등록될 때 마다 생성되는 명언의 번호 1씩 증가")
+    public void t6() {
+        String rs = AppTestRunner.run(""
+                + "등록\n"
+                + "현재를 사랑하라.\n"
+                + "작자미상\n"
+                + "등록\n"
+                + "나의 죽음을.\n"
+                + "이순신\n"
+                + "등록\n"
+                + "삼삼.\n"
+                + "3\n"
+                + "");
+
+        assertThat(rs)
+                .contains("1번 명언이 등록되었습니다.")
+                .contains("2번 명언이 등록되었습니다.")
+                .contains("3번 명언이 등록되었습니다.");
+    }
 }
